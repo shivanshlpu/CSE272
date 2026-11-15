@@ -1,0 +1,1 @@
+{"name":"signal-research","version":"2.0.0","private":true,"scripts":{"setup":"npm ci --prefix frontend && npm ci --prefix server","build":"npm run build --prefix frontend","start":"node server/index.mjs","dev":"npm run dev --prefix frontend","train":".venv/bin/python -m ml.train","download":".venv/bin/python -m ml.data","test":".venv/bin/python -m pytest -q"}}

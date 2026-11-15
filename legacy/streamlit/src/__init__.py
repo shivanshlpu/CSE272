@@ -1,0 +1,1 @@
+"""Multilingual sentiment tracking application."""
