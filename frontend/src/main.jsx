@@ -450,30 +450,6 @@ function App() {
 
         {/* Right Header Actions */}
         <div className="header-actions">
-          <a
-            href="/landing"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-outline"
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: 6,
-              fontSize: 12.5,
-              fontWeight: 600,
-              textDecoration: 'none',
-              padding: '6px 12px',
-              borderRadius: 8,
-              borderColor: 'var(--border-subtle)',
-              color: 'var(--text-primary)',
-              background: 'var(--bg-subtle)'
-            }}
-          >
-            <Sparkles size={13} style={{ color: 'var(--primary)' }} />
-            <span>Landing Page</span>
-            <ExternalLink size={12} style={{ color: 'var(--text-muted)', marginLeft: 1 }} />
-          </a>
-
           <div className="live-status-pill">
             <span className="live-green-dot" />
             <span>YouTube Connected</span>

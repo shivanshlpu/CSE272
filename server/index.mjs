@@ -134,7 +134,6 @@ app.post('/api/scout',wrap(async(req,res)=>{
 }));
 app.use('/api',(_req,res)=>res.status(404).json({error:'Unknown API route'}));
 app.use(express.static(path.join(root,'frontend/dist')));
-app.get('/landing',(_req,res)=>res.sendFile(path.join(root,'frontend/dist/landing.html')));
 app.get('*',(_req,res)=>res.sendFile(path.join(root,'frontend/dist/index.html')));
 app.use((error,_req,res,_next)=>res.status(error.status|| (error instanceof SyntaxError?400:503)).json({error:error.message||'Request failed'}));
 const server=app.listen(Number(process.env.PORT||3001),host,()=>console.log(`Bhav monitoring: http://${host}:${server.address().port}`));
