@@ -4,7 +4,7 @@ import re
 import sys
 import time
 import traceback
-from datetime import datetime
+from datetime import datetime, timezone
 import numpy as np
 import pandas as pd
 from sklearn.decomposition import TruncatedSVD, NMF
@@ -128,7 +128,7 @@ def run():
                 result = {
                     'predictions': predictions,
                     'latency_ms': latency_ms,
-                    'timestamp': datetime.utcnow().isoformat() + 'Z',
+                    'timestamp': datetime.now(timezone.utc).isoformat(),
                     'engine': 'Local PyTorch Hybrid MiniLM + TF-IDF (On-Device, 0 Cloud Calls)'
                 }
             
@@ -250,7 +250,7 @@ def run():
                         'followers': followers,
                         'source': source,
                         'dataset': 'Live Ingestion Stream',
-                        'timestamp': datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S UTC'),
+                        'timestamp': datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S UTC'),
                         'truth': 'Unlabelled (Live)',
                         'x': float(np.random.normal(0, 0.5)),
                         'y': float(np.random.normal(0, 0.5)),

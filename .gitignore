@@ -1,40 +1,42 @@
+# Environment & credentials
 .env
+.env.*
+!.env.example
+
+# Virtual environments
 .venv/
 venv/
+env/
+
+# Python cache
 __pycache__/
 .pytest_cache/
 *.py[cod]
-data/*.parquet
-data/*.csv
-data/*.json
-data/*.npy
 
+# Dependencies
 node_modules/
-frontend/dist/
-artifacts/*.joblib
-artifacts/*.pt
-artifacts/*.npy
-data/downloaded/
-*.sqlite
 
-# Code-only repository: exclude documents, prompts, and generated files
-*.[mM][dD]
-*.[mM][dD][xX]
-*.[pP][dD][fF]
-*.doc
-*.docx
-*.pptx
-*.xlsx
-*prompt*
-reports/
-docs/
-data/
-artifacts/
-.env*
-!.env.example
+# Local databases & logs
+*.sqlite
+*.sqlite-*
 *.log
+server.log
+
+# Large binary embeddings and raw dataset cache
+data/*.parquet
+data/*.npy
+data/downloaded/
+artifacts/*.npy
+artifacts/*.pt
+artifacts/*.joblib
+
+# Agent & prompt meta files
+.agents/
+AGENT_HANDOFF.md
+PROGRESS_STATE.md
+codex_astra_master_prompt.md
+prompt.md
+
+# OS files
 .DS_Store
-*.png
-*.jpg
-*.jpeg
-*.zip
+Thumbs.db

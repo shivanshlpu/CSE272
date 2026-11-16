@@ -27,7 +27,9 @@ class LocalModel:
     def embeddings(self,texts):
         if self.encoder is None:
             from sentence_transformers import SentenceTransformer
-            self.encoder=SentenceTransformer(ENCODER,revision=ENCODER_REVISION,local_files_only=True,device='cpu')
+            from huggingface_hub import snapshot_download
+            cached=snapshot_download(ENCODER,revision=ENCODER_REVISION,local_files_only=True)
+            self.encoder=SentenceTransformer(cached,local_files_only=True,device='cpu')
             self.encoder.max_seq_length=128
         return self.encoder.encode(texts,batch_size=64,show_progress_bar=False,normalize_embeddings=True)
     def predict(self,texts):

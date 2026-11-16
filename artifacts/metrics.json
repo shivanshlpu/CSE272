@@ -1,0 +1,373 @@
+{
+  "model": "Multilingual lexical + neural ensemble",
+  "version": "2.0",
+  "seed": 42,
+  "encoder": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+  "encoder_training": "Frozen pretrained encoder; 49,667-parameter neural head trained locally with AdamW and early stopping. Encoder weights are NOT fine-tuned.",
+  "training_rows": 17670,
+  "validation_rows": 3647,
+  "test_rows": 4737,
+  "selected_neural_weight": 0.25,
+  "review_threshold": 0.6,
+  "baseline_test": {
+    "accuracy": 0.5986911547392865,
+    "macro_f1": 0.6007328515787477,
+    "log_loss": 0.8517879725311606
+  },
+  "test": {
+    "accuracy": 0.6483006122018155,
+    "macro_f1": 0.651486472410138,
+    "log_loss": 0.8236671756972758
+  },
+  "per_language": {
+    "en": {
+      "accuracy": 0.6379310344827587,
+      "macro_f1": 0.6416396893187483,
+      "log_loss": 0.8755486069096573
+    },
+    "hi": {
+      "accuracy": 0.5363321799307958,
+      "macro_f1": 0.5378094695459366,
+      "log_loss": 0.967142414464532
+    },
+    "hi-en": {
+      "accuracy": 0.6836666666666666,
+      "macro_f1": 0.6863812928500738,
+      "log_loss": 0.7671572166419482
+    }
+  },
+  "confusion_matrix": [
+    [
+      1018,
+      369,
+      92
+    ],
+    [
+      391,
+      980,
+      307
+    ],
+    [
+      114,
+      393,
+      1073
+    ]
+  ],
+  "labels": [
+    "Negative",
+    "Neutral",
+    "Positive"
+  ],
+  "classification_report": {
+    "Negative": {
+      "precision": 0.6684175968483257,
+      "recall": 0.6883029073698445,
+      "f1-score": 0.6782145236508994,
+      "support": 1479.0
+    },
+    "Neutral": {
+      "precision": 0.5625717566016073,
+      "recall": 0.5840286054827175,
+      "f1-score": 0.5730994152046783,
+      "support": 1678.0
+    },
+    "Positive": {
+      "precision": 0.7289402173913043,
+      "recall": 0.6791139240506329,
+      "f1-score": 0.7031454783748362,
+      "support": 1580.0
+    },
+    "accuracy": 0.6483006122018155,
+    "macro avg": {
+      "precision": 0.6533098569470791,
+      "recall": 0.650481812301065,
+      "f1-score": 0.651486472410138,
+      "support": 4737.0
+    },
+    "weighted avg": {
+      "precision": 0.651110529194518,
+      "recall": 0.6483006122018155,
+      "f1-score": 0.6492949028974818,
+      "support": 4737.0
+    }
+  },
+  "trials": [
+    {
+      "name": "Word unigram baseline",
+      "validation": {
+        "accuracy": 0.5749931450507266,
+        "macro_f1": 0.5744063082067581,
+        "log_loss": 0.8922249004146778
+      }
+    },
+    {
+      "name": "Word + character / C=0.5",
+      "validation": {
+        "accuracy": 0.5887030435974774,
+        "macro_f1": 0.5901699297925713,
+        "log_loss": 0.8779005005100323
+      }
+    },
+    {
+      "name": "Word + character / C=2.0",
+      "validation": {
+        "accuracy": 0.5747189470797917,
+        "macro_f1": 0.5771594885541335,
+        "log_loss": 0.8926704175522213
+      }
+    },
+    {
+      "name": "Word + character / C=8.0",
+      "validation": {
+        "accuracy": 0.5656704140389361,
+        "macro_f1": 0.5685469557576818,
+        "log_loss": 0.9988294270785947
+      }
+    },
+    {
+      "name": "Hybrid / neural weight 0",
+      "validation": {
+        "accuracy": 0.5887030435974774,
+        "macro_f1": 0.5901699297925713,
+        "log_loss": 0.8779005005100323
+      }
+    },
+    {
+      "name": "Hybrid / neural weight 0.25",
+      "validation": {
+        "accuracy": 0.601041952289553,
+        "macro_f1": 0.6025864631518622,
+        "log_loss": 0.871085226271953
+      }
+    },
+    {
+      "name": "Hybrid / neural weight 0.5",
+      "validation": {
+        "accuracy": 0.5980257746092679,
+        "macro_f1": 0.5998114970962586,
+        "log_loss": 0.8756701214681556
+      }
+    },
+    {
+      "name": "Hybrid / neural weight 0.75",
+      "validation": {
+        "accuracy": 0.5774609267891417,
+        "macro_f1": 0.5792225839212803,
+        "log_loss": 0.891162389148645
+      }
+    },
+    {
+      "name": "Hybrid / neural weight 1.0",
+      "validation": {
+        "accuracy": 0.5505895256375103,
+        "macro_f1": 0.5518905060777356,
+        "log_loss": 0.9206069378097231
+      }
+    }
+  ],
+  "neural_history": [
+    {
+      "epoch": 1,
+      "train_loss": 1.0090888455552305,
+      "accuracy": 0.5231697285440088,
+      "macro_f1": 0.5273343698137214,
+      "log_loss": 0.9539173587749996
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.9427206099202017,
+      "accuracy": 0.5242665204277488,
+      "macro_f1": 0.5160214136000097,
+      "log_loss": 0.947857065584069
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.9268996467817012,
+      "accuracy": 0.5300246778173842,
+      "macro_f1": 0.5245837599120149,
+      "log_loss": 0.9379410964149143
+    },
+    {
+      "epoch": 4,
+      "train_loss": 0.9168217059104673,
+      "accuracy": 0.525911708253359,
+      "macro_f1": 0.5139926354693712,
+      "log_loss": 0.9360354810534263
+    },
+    {
+      "epoch": 5,
+      "train_loss": 0.908149054223154,
+      "accuracy": 0.5333150534686043,
+      "macro_f1": 0.5295333092833093,
+      "log_loss": 0.9303030336209497
+    },
+    {
+      "epoch": 6,
+      "train_loss": 0.9007471744529798,
+      "accuracy": 0.5335892514395394,
+      "macro_f1": 0.5290368687943895,
+      "log_loss": 0.9292900883603246
+    },
+    {
+      "epoch": 7,
+      "train_loss": 0.8954408175269291,
+      "accuracy": 0.5341376473814093,
+      "macro_f1": 0.5242168486950369,
+      "log_loss": 0.935618849612996
+    },
+    {
+      "epoch": 8,
+      "train_loss": 0.8898911972537038,
+      "accuracy": 0.5429119824513299,
+      "macro_f1": 0.5441744908871216,
+      "log_loss": 0.9221577605666491
+    },
+    {
+      "epoch": 9,
+      "train_loss": 0.8839751040389056,
+      "accuracy": 0.5385248149163696,
+      "macro_f1": 0.5312989722087925,
+      "log_loss": 0.9237140433976393
+    },
+    {
+      "epoch": 10,
+      "train_loss": 0.8795518363001121,
+      "accuracy": 0.5505895256375103,
+      "macro_f1": 0.5518905060777356,
+      "log_loss": 0.9206069378097231
+    },
+    {
+      "epoch": 11,
+      "train_loss": 0.8767696737838317,
+      "accuracy": 0.5437345763641349,
+      "macro_f1": 0.5436966623608344,
+      "log_loss": 0.9179800635863514
+    },
+    {
+      "epoch": 12,
+      "train_loss": 0.8726071221651704,
+      "accuracy": 0.54455717027694,
+      "macro_f1": 0.5427794392586826,
+      "log_loss": 0.9190596030468239
+    },
+    {
+      "epoch": 13,
+      "train_loss": 0.8676679976794702,
+      "accuracy": 0.5448313682478749,
+      "macro_f1": 0.5380982676033311,
+      "log_loss": 0.9220434732237558
+    },
+    {
+      "epoch": 14,
+      "train_loss": 0.8619074725403109,
+      "accuracy": 0.5478475459281601,
+      "macro_f1": 0.546610472797884,
+      "log_loss": 0.9170768688959933
+    },
+    {
+      "epoch": 15,
+      "train_loss": 0.8583354154008219,
+      "accuracy": 0.5467507540444201,
+      "macro_f1": 0.5435225082554158,
+      "log_loss": 0.9188523640423932
+    }
+  ],
+  "seconds": 216.95714766600577,
+  "provenance": {
+    "sources": [
+      {
+        "url": "https://huggingface.co/datasets/cardiffnlp/tweet_sentiment_multilingual/resolve/14b13edfbc4046892f6011d114c29c0f83170589/data/english/train.jsonl",
+        "file": "cardiff_english_train.jsonl",
+        "sha256": "96596c722cb8074ca0c8df1243a248fe265c49c1aa50ba79c14b24dd23303111",
+        "bytes": 252778
+      },
+      {
+        "url": "https://huggingface.co/datasets/cardiffnlp/tweet_sentiment_multilingual/resolve/14b13edfbc4046892f6011d114c29c0f83170589/data/english/validation.jsonl",
+        "file": "cardiff_english_validation.jsonl",
+        "sha256": "dbb766902afc20d3d8cb7655a9c293484ec7ff9244811e4a4598b97f8a2522b7",
+        "bytes": 44452
+      },
+      {
+        "url": "https://huggingface.co/datasets/cardiffnlp/tweet_sentiment_multilingual/resolve/14b13edfbc4046892f6011d114c29c0f83170589/data/english/test.jsonl",
+        "file": "cardiff_english_test.jsonl",
+        "sha256": "cc0aecebfa381614cc14dfe13684f94558e4a28446a52c3acc2eb674694f7785",
+        "bytes": 107114
+      },
+      {
+        "url": "https://huggingface.co/datasets/cardiffnlp/tweet_sentiment_multilingual/resolve/14b13edfbc4046892f6011d114c29c0f83170589/data/hindi/train.jsonl",
+        "file": "cardiff_hindi_train.jsonl",
+        "sha256": "8f5e65240b92f2f5bab49c31d6f32c633bbce054f3db60082e704e8fe6b322d8",
+        "bytes": 191961
+      },
+      {
+        "url": "https://huggingface.co/datasets/cardiffnlp/tweet_sentiment_multilingual/resolve/14b13edfbc4046892f6011d114c29c0f83170589/data/hindi/validation.jsonl",
+        "file": "cardiff_hindi_validation.jsonl",
+        "sha256": "7bce67a7e593240086e82975c4fefe28cef8235260ab5fb98432b6b5b25dba9f",
+        "bytes": 35196
+      },
+      {
+        "url": "https://huggingface.co/datasets/cardiffnlp/tweet_sentiment_multilingual/resolve/14b13edfbc4046892f6011d114c29c0f83170589/data/hindi/test.jsonl",
+        "file": "cardiff_hindi_test.jsonl",
+        "sha256": "af4cfc1078e4b5cda6880831f09aa1bfbf41785b2433a364a20a8bac0a6f4cc1",
+        "bytes": 86209
+      },
+      {
+        "url": "https://huggingface.co/datasets/RTT1/SentiMix/resolve/205f0391fc1f10320ec3c10708eaa27e88db04c7/train_14k_split_conll.txt",
+        "file": "train_14k_split_conll.txt",
+        "sha256": "9b1118ad0a3e46a909e0e380bfa289b8fc748f4e7fca24871129e3a22dd36b80",
+        "bytes": 3437706
+      },
+      {
+        "url": "https://huggingface.co/datasets/RTT1/SentiMix/resolve/205f0391fc1f10320ec3c10708eaa27e88db04c7/dev_3k_split_conll.txt",
+        "file": "dev_3k_split_conll.txt",
+        "sha256": "e4dc583ed95e892669527b864aac01b86d990aee59d5fdc91a5e615e0f5f00a0",
+        "bytes": 739899
+      },
+      {
+        "url": "https://huggingface.co/datasets/RTT1/SentiMix/resolve/205f0391fc1f10320ec3c10708eaa27e88db04c7/Hindi_test_unalbelled_conll_updated.txt",
+        "file": "Hindi_test_unalbelled_conll_updated.txt",
+        "sha256": "3bfb1c33d2429db79e33a3eab0823e2c3597eada2afbbed5070468c8f4262fcd",
+        "bytes": 726029
+      },
+      {
+        "url": "https://huggingface.co/datasets/RTT1/SentiMix/resolve/205f0391fc1f10320ec3c10708eaa27e88db04c7/test_labels_hinglish.txt",
+        "file": "test_labels_hinglish.txt",
+        "sha256": "6ce8340f8c8b20e81cccb40265ebfcde00b4de0423651a0d7ebdd5a75fc884ed",
+        "bytes": 43222
+      }
+    ],
+    "rows_before_dedup": 26066,
+    "rows_after_dedup": 26054,
+    "removed": 12,
+    "split_counts": {
+      "test": {
+        "en": 870,
+        "hi": 867,
+        "hi-en": 3000
+      },
+      "train": {
+        "en": 1839,
+        "hi": 1833,
+        "hi-en": 13998
+      },
+      "validation": {
+        "en": 324,
+        "hi": 323,
+        "hi-en": 3000
+      }
+    },
+    "policy": "Published splits; normalized exact duplicates reserved for test, then validation, then train. No generated samples or metadata. Near-duplicate leakage remains a limitation."
+  },
+  "limitations": [
+    "No sarcasm/emotion labels; these capabilities are not claimed.",
+    "Dataset cards and upstream rights govern reuse; downloaded social text may contain offensive content.",
+    "No post timestamps or engagement available: no invented trend timeline or reach weighting.",
+    "Frozen encoder pretraining overlap is unknown; exact normalized duplicates removed, near-duplicates not fully audited.",
+    "Probabilities are uncalibrated estimates; review threshold is a fixed heuristic, not a guaranteed error bound."
+  ],
+  "artifacts_sha256": {
+    "model.joblib": "a6b383cae5182c3ecef8ba7ab19e11a805447df1c66dead1d64f2b11ced99647",
+    "neural.pt": "ab4c9c9c68cb1d4019e69c2c99727383357859a487c327817fbf9d04e0d591f0"
+  },
+  "encoder_revision": "e8f8c211226b894fcb81acc59f3b34ba3efd5f42"
+}
