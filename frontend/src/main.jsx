@@ -399,23 +399,27 @@ function App() {
       <header className="site-header">
         <a className="brand-wrapper" href="#/">
           <div className="brand-mark-custom" style={{
-            width: 36,
-            height: 36,
-            borderRadius: '10px',
+            width: 38,
+            height: 38,
+            borderRadius: '11px',
+            overflow: 'hidden',
             background: 'linear-gradient(135deg, #4F46E5 0%, #7C3AED 50%, #06B6D4 100%)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            boxShadow: '0 2px 10px rgba(79, 70, 229, 0.35)',
+            boxShadow: '0 4px 14px rgba(79, 70, 229, 0.4)',
             flexShrink: 0
           }}>
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M2 13.5C4 13.5 5 8 7.5 8C10 8 10.5 19 13 19C15 19 15.8 11.5 18 11.5C19.5 11.5 20.5 13.5 22 13.5" />
-              <circle cx="7.5" cy="8" r="1.5" fill="#FFFFFF" />
-              <circle cx="13" cy="19" r="1.5" fill="#FFFFFF" />
-            </svg>
+            <img
+              src="/assets/bhav-app-icon.jpg"
+              alt="Bhav Logo"
+              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+              onError={(e) => {
+                e.currentTarget.style.display = 'none';
+              }}
+            />
           </div>
-          <div className="brand-title-text" style={{ fontSize: 21, fontWeight: 900, letterSpacing: '-0.8px', color: 'var(--text-primary)', display: 'flex', alignItems: 'center' }}>
+          <div className="brand-title-text" style={{ fontSize: 22, fontWeight: 900, letterSpacing: '-0.8px', color: 'var(--text-primary)', display: 'flex', alignItems: 'center' }}>
             <span>bhav</span>
             <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--primary)', marginLeft: 3, display: 'inline-block' }} />
           </div>
@@ -446,6 +450,29 @@ function App() {
 
         {/* Right Header Actions */}
         <div className="header-actions">
+          <a
+            href="/landing"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-outline"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 6,
+              fontSize: 12,
+              fontWeight: 600,
+              textDecoration: 'none',
+              padding: '6px 12px',
+              borderRadius: 8,
+              borderColor: 'var(--border-subtle)',
+              color: 'var(--text-primary)',
+              background: 'var(--surface-muted)'
+            }}
+          >
+            <span>✨</span>
+            <span>Landing Page</span>
+          </a>
+
           <div className="live-status-pill">
             <span className="live-green-dot" />
             <span>YouTube Connected</span>
