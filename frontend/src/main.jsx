@@ -403,11 +403,11 @@ function App() {
             height: 38,
             borderRadius: '11px',
             overflow: 'hidden',
-            background: 'linear-gradient(135deg, #4F46E5 0%, #7C3AED 50%, #06B6D4 100%)',
+            background: 'linear-gradient(135deg, #2563EB 0%, #0284C7 50%, #0D9488 100%)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            boxShadow: '0 4px 14px rgba(79, 70, 229, 0.4)',
+            boxShadow: '0 4px 14px rgba(37, 99, 235, 0.25)',
             flexShrink: 0
           }}>
             <img
@@ -459,18 +459,19 @@ function App() {
               display: 'inline-flex',
               alignItems: 'center',
               gap: 6,
-              fontSize: 12,
+              fontSize: 12.5,
               fontWeight: 600,
               textDecoration: 'none',
               padding: '6px 12px',
               borderRadius: 8,
               borderColor: 'var(--border-subtle)',
               color: 'var(--text-primary)',
-              background: 'var(--surface-muted)'
+              background: 'var(--bg-subtle)'
             }}
           >
-            <span>✨</span>
+            <Sparkles size={13} style={{ color: 'var(--primary)' }} />
             <span>Landing Page</span>
+            <ExternalLink size={12} style={{ color: 'var(--text-muted)', marginLeft: 1 }} />
           </a>
 
           <div className="live-status-pill">

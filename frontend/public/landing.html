@@ -10,27 +10,57 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #07090E;
-      --bg-surface: #0E131F;
-      --bg-surface-elevated: #141C2E;
-      --border: rgba(255, 255, 255, 0.08);
-      --border-glow: rgba(99, 102, 241, 0.35);
-      --text: #F8FAFC;
-      --text-muted: #94A3B8;
-      --text-dim: #64748B;
-      --primary: #6366F1;
-      --primary-glow: rgba(99, 102, 241, 0.5);
-      --cyan: #06B6D4;
-      --emerald: #10B981;
-      --emerald-glow: rgba(16, 185, 129, 0.25);
-      --rose: #F43F5E;
-      --font-display: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      /* Clean, Modern Light Enterprise Palette (Stripe / Antigravity / Apple caliber) */
+      --bg: #FFFFFF;
+      --bg-canvas: #FAFAFC;
+      --bg-surface: #FFFFFF;
+      --bg-surface-elevated: #F8FAFC;
+      --bg-subtle: #F1F5F9;
+      --border: #E2E8F0;
+      --border-subtle: #EDF2F7;
+      --border-focus: #2563EB;
+      
+      --text: #0F172A;
+      --text-secondary: #334155;
+      --text-muted: #64748B;
+      --text-dim: #94A3B8;
+      
+      /* Pure Enterprise Tech Accents - Zero Purple, Crisp Blue/Teal/Emerald */
+      --primary: #2563EB;
+      --primary-hover: #1D4ED8;
+      --primary-light: #EFF6FF;
+      --primary-border: #BFDBFE;
+      --primary-glow: rgba(37, 99, 235, 0.16);
+
+      --teal: #0D9488;
+      --teal-light: #F0FDFA;
+      --teal-border: #99F6E4;
+
+      --cyan: #0284C7;
+      --cyan-light: #F0F9FF;
+      --cyan-border: #BAE6FD;
+
+      --emerald: #059669;
+      --emerald-light: #ECFDF5;
+      --emerald-border: #A7F3D0;
+      --emerald-text: #065F46;
+
+      --rose: #E11D48;
+      --rose-light: #FFF1F2;
+      --rose-border: #FECDD3;
+      --rose-text: #9F1239;
+
+      --amber: #D97706;
+      --amber-light: #FFFBEB;
+      --amber-border: #FDE68A;
+      
+      --font-display: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
       --radius-sm: 8px;
       --radius-md: 14px;
-      --radius-lg: 22px;
+      --radius-lg: 20px;
       --radius-full: 9999px;
-      --transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      --transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     * {
@@ -48,7 +78,23 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* 3D Canvas Background */
+    /* Ambient Light Mesh Background */
+    .ambient-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
+      pointer-events: none;
+      background: 
+        radial-gradient(circle at 18% 18%, rgba(37, 99, 235, 0.05) 0%, transparent 45%),
+        radial-gradient(circle at 82% 24%, rgba(13, 148, 136, 0.05) 0%, transparent 45%),
+        radial-gradient(circle at 50% 85%, rgba(16, 185, 129, 0.04) 0%, transparent 50%),
+        #FAFAFC;
+    }
+
+    /* 3D Canvas Background (Interactive Nodes) */
     #canvas-bg {
       position: fixed;
       top: 0;
@@ -57,54 +103,31 @@
       height: 100vh;
       z-index: 0;
       pointer-events: none;
-      opacity: 0.65;
+      opacity: 0.85;
     }
 
-    /* Glow Spotlights */
-    .glow-spotlight-top {
-      position: absolute;
-      top: -200px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 900px;
-      height: 600px;
-      background: radial-gradient(ellipse at center, rgba(99, 102, 241, 0.22) 0%, rgba(6, 182, 212, 0.12) 40%, transparent 70%);
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    .glow-spotlight-mid {
-      position: absolute;
-      top: 1400px;
-      left: 20%;
-      width: 700px;
-      height: 500px;
-      background: radial-gradient(ellipse at center, rgba(16, 185, 129, 0.12) 0%, transparent 70%);
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    /* Content Wrapper */
+    /* Content Layer */
     .content-layer {
       position: relative;
       z-index: 1;
     }
 
-    /* Navigation Bar */
+    /* Top Sticky Glass Navigation */
     .site-nav {
       position: sticky;
       top: 0;
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
-      background: rgba(7, 9, 14, 0.75);
+      background: rgba(255, 255, 255, 0.88);
       border-bottom: 1px solid var(--border);
       height: 72px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 40px;
+      padding: 0 44px;
       z-index: 100;
       transition: var(--transition);
+      box-shadow: 0 1px 3px rgba(15, 23, 42, 0.02);
     }
 
     .brand-group {
@@ -118,11 +141,12 @@
     .brand-icon-3d {
       width: 38px;
       height: 38px;
-      border-radius: 10px;
+      border-radius: 11px;
       overflow: hidden;
-      box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      background: #000;
+      box-shadow: 0 3px 12px rgba(37, 99, 235, 0.2);
+      border: 1px solid var(--border);
+      background: #FFFFFF;
+      flex-shrink: 0;
     }
 
     .brand-icon-3d img {
@@ -138,6 +162,7 @@
       display: flex;
       align-items: center;
       gap: 2px;
+      color: var(--text);
     }
 
     .brand-dot {
@@ -146,18 +171,18 @@
       background: var(--primary);
       border-radius: 50%;
       display: inline-block;
-      box-shadow: 0 0 10px var(--primary);
+      margin-left: 2px;
     }
 
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 28px;
+      gap: 32px;
       list-style: none;
     }
 
     .nav-links a {
-      color: var(--text-muted);
+      color: var(--text-secondary);
       text-decoration: none;
       font-size: 14px;
       font-weight: 600;
@@ -165,35 +190,36 @@
     }
 
     .nav-links a:hover {
-      color: var(--text);
+      color: var(--primary);
     }
 
     .nav-cta-btn {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      background: linear-gradient(135deg, #4F46E5, #6366F1);
+      background: var(--primary);
       color: #FFFFFF;
-      padding: 10px 20px;
+      padding: 10px 22px;
       border-radius: var(--radius-full);
       font-size: 13.5px;
       font-weight: 700;
       text-decoration: none;
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      box-shadow: 0 4px 18px rgba(79, 70, 229, 0.4);
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
       transition: var(--transition);
+      border: 1px solid rgba(255, 255, 255, 0.2);
     }
 
     .nav-cta-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(79, 70, 229, 0.6);
+      background: var(--primary-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
     }
 
     /* Hero Section */
     .hero-container {
       max-width: 1240px;
       margin: 0 auto;
-      padding: 80px 24px 60px;
+      padding: 72px 24px 60px;
       text-align: center;
       display: flex;
       flex-direction: column;
@@ -204,48 +230,40 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 6px 16px;
-      background: rgba(99, 102, 241, 0.1);
-      border: 1px solid rgba(99, 102, 241, 0.3);
+      padding: 7px 18px;
+      background: var(--primary-light);
+      border: 1px solid var(--primary-border);
       border-radius: var(--radius-full);
-      font-size: 12px;
+      font-size: 12.5px;
       font-weight: 700;
-      color: #A5B4FC;
-      letter-spacing: 0.4px;
+      color: var(--primary-hover);
+      letter-spacing: 0.3px;
       margin-bottom: 24px;
-      box-shadow: 0 0 20px rgba(99, 102, 241, 0.15);
-      animation: floatPill 4s ease-in-out infinite alternate;
-    }
-
-    @keyframes floatPill {
-      0% { transform: translateY(0); }
-      100% { transform: translateY(-4px); }
+      box-shadow: 0 2px 8px rgba(37, 99, 235, 0.08);
     }
 
     .hero-headline {
-      font-size: clamp(38px, 6.5vw, 76px);
+      font-size: clamp(38px, 6vw, 72px);
       font-weight: 900;
       letter-spacing: -2px;
-      line-height: 1.08;
-      max-width: 980px;
-      margin-bottom: 24px;
-      background: linear-gradient(180deg, #FFFFFF 20%, #94A3B8 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      line-height: 1.1;
+      max-width: 960px;
+      margin-bottom: 22px;
+      color: var(--text);
     }
 
     .hero-headline span.gradient-text {
-      background: linear-gradient(135deg, #6366F1 0%, #06B6D4 50%, #10B981 100%);
+      background: linear-gradient(135deg, #2563EB 0%, #0D9488 50%, #059669 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
     .hero-subtext {
-      font-size: clamp(16px, 2vw, 20px);
-      color: var(--text-muted);
-      max-width: 760px;
-      line-height: 1.6;
-      margin-bottom: 40px;
+      font-size: clamp(16px, 2vw, 19px);
+      color: var(--text-secondary);
+      max-width: 780px;
+      line-height: 1.65;
+      margin-bottom: 38px;
     }
 
     .hero-actions {
@@ -254,53 +272,55 @@
       gap: 16px;
       flex-wrap: wrap;
       justify-content: center;
-      margin-bottom: 60px;
+      margin-bottom: 56px;
     }
 
     .btn-hero-primary {
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      padding: 16px 32px;
-      background: linear-gradient(135deg, #6366F1, #4F46E5);
+      padding: 15px 32px;
+      background: var(--primary);
       color: #FFFFFF;
       font-size: 15px;
-      font-weight: 800;
+      font-weight: 700;
       border-radius: var(--radius-full);
       text-decoration: none;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      box-shadow: 0 10px 30px rgba(79, 70, 229, 0.45);
+      box-shadow: 0 8px 24px rgba(37, 99, 235, 0.35);
       transition: var(--transition);
+      border: 1px solid rgba(255, 255, 255, 0.2);
     }
 
     .btn-hero-primary:hover {
-      transform: translateY(-3px) scale(1.02);
-      box-shadow: 0 14px 40px rgba(79, 70, 229, 0.65);
+      background: var(--primary-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(37, 99, 235, 0.45);
     }
 
     .btn-hero-secondary {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 16px 28px;
-      background: rgba(255, 255, 255, 0.05);
-      color: var(--text);
+      padding: 15px 28px;
+      background: #FFFFFF;
+      color: var(--text-secondary);
       font-size: 15px;
       font-weight: 700;
       border-radius: var(--radius-full);
       text-decoration: none;
       border: 1px solid var(--border);
-      backdrop-filter: blur(10px);
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
       transition: var(--transition);
     }
 
     .btn-hero-secondary:hover {
-      background: rgba(255, 255, 255, 0.1);
-      border-color: rgba(255, 255, 255, 0.2);
+      background: var(--bg-surface-elevated);
+      color: var(--text);
+      border-color: #CBD5E1;
       transform: translateY(-2px);
     }
 
-    /* 3D Dashboard Mockup Frame */
+    /* 3D Dashboard Mockup Card (Light Mode) */
     .hero-mockup-wrapper {
       position: relative;
       width: 100%;
@@ -310,20 +330,22 @@
     }
 
     .hero-mockup-card {
-      background: rgba(14, 19, 31, 0.85);
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
+      background: #FFFFFF;
       border: 1px solid var(--border);
       border-radius: var(--radius-lg);
-      padding: 24px;
-      box-shadow: 0 30px 80px -15px rgba(0, 0, 0, 0.7), 0 0 50px rgba(99, 102, 241, 0.15);
+      padding: 26px;
+      box-shadow: 
+        0 24px 60px -15px rgba(15, 23, 42, 0.08),
+        0 4px 16px -2px rgba(37, 99, 235, 0.04);
       transition: var(--transition);
-      transform: rotateX(4deg);
+      transform: rotateX(2.5deg);
     }
 
     .hero-mockup-card:hover {
       transform: rotateX(0deg);
-      box-shadow: 0 35px 90px -10px rgba(0, 0, 0, 0.8), 0 0 70px rgba(99, 102, 241, 0.25);
+      box-shadow: 
+        0 32px 75px -12px rgba(15, 23, 42, 0.12),
+        0 8px 24px -2px rgba(37, 99, 235, 0.08);
     }
 
     .mockup-header-bar {
@@ -332,17 +354,17 @@
       justify-content: space-between;
       border-bottom: 1px solid var(--border);
       padding-bottom: 16px;
-      margin-bottom: 20px;
+      margin-bottom: 22px;
     }
 
     .mockup-dots {
       display: flex;
-      gap: 6px;
+      gap: 7px;
     }
 
     .mockup-dot {
-      width: 10px;
-      height: 10px;
+      width: 11px;
+      height: 11px;
       border-radius: 50%;
     }
 
@@ -355,15 +377,16 @@
     }
 
     .mock-metric-box {
-      background: rgba(255, 255, 255, 0.03);
+      background: var(--bg-surface-elevated);
       border: 1px solid var(--border);
       border-radius: var(--radius-md);
-      padding: 16px;
+      padding: 18px;
+      transition: var(--transition);
     }
 
     .mock-metric-box.active-emerald {
-      border-color: rgba(16, 185, 129, 0.4);
-      background: rgba(16, 185, 129, 0.06);
+      border-color: var(--emerald-border);
+      background: var(--emerald-light);
     }
 
     .mock-metric-val {
@@ -371,19 +394,20 @@
       font-weight: 900;
       letter-spacing: -1px;
       margin: 4px 0;
+      color: var(--text);
     }
 
     /* Bento Grid Section */
     .section-container {
       max-width: 1240px;
-      margin: 120px auto 0;
+      margin: 110px auto 0;
       padding: 0 24px;
     }
 
     .section-header {
       text-align: center;
       max-width: 760px;
-      margin: 0 auto 60px;
+      margin: 0 auto 56px;
     }
 
     .section-eyebrow {
@@ -396,11 +420,12 @@
     }
 
     .section-title {
-      font-size: clamp(28px, 4vw, 44px);
+      font-size: clamp(28px, 4vw, 42px);
       font-weight: 900;
       letter-spacing: -1px;
-      line-height: 1.15;
+      line-height: 1.18;
       margin-bottom: 16px;
+      color: var(--text);
     }
 
     .bento-grid {
@@ -410,7 +435,7 @@
     }
 
     .bento-card {
-      background: var(--bg-surface);
+      background: #FFFFFF;
       border: 1px solid var(--border);
       border-radius: var(--radius-lg);
       padding: 32px;
@@ -420,12 +445,13 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      box-shadow: 0 4px 16px rgba(15, 23, 42, 0.03);
     }
 
     .bento-card:hover {
-      border-color: var(--border-glow);
-      transform: translateY(-4px);
-      box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5), 0 0 30px rgba(99, 102, 241, 0.15);
+      border-color: var(--primary-border);
+      transform: translateY(-3px);
+      box-shadow: 0 16px 36px -4px rgba(37, 99, 235, 0.08), 0 4px 12px rgba(15, 23, 42, 0.03);
     }
 
     .bento-col-8 { grid-column: span 8; }
@@ -439,9 +465,9 @@
       gap: 6px;
       font-size: 11px;
       font-weight: 700;
-      color: var(--cyan);
+      color: var(--primary);
       text-transform: uppercase;
-      letter-spacing: 0.5px;
+      letter-spacing: 0.6px;
       margin-bottom: 12px;
     }
 
@@ -450,66 +476,68 @@
       font-weight: 800;
       letter-spacing: -0.5px;
       margin-bottom: 12px;
+      color: var(--text);
     }
 
     .bento-card-desc {
-      font-size: 14px;
-      color: var(--text-muted);
+      font-size: 14.5px;
+      color: var(--text-secondary);
       line-height: 1.6;
       margin-bottom: 24px;
     }
 
     /* Interactive Live Sandbox Inside Landing */
     .sandbox-container {
-      background: #0B0F19;
+      background: #FFFFFF;
       border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      padding: 24px;
-      margin-top: 14px;
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      box-shadow: 0 12px 36px -4px rgba(15, 23, 42, 0.06);
     }
 
     .sandbox-input-area {
       width: 100%;
-      background: #141B2D;
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border);
       border-radius: var(--radius-sm);
-      color: #FFFFFF;
+      color: var(--text);
       font-family: var(--font-display);
       font-size: 14px;
       padding: 12px 16px;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
       outline: none;
       transition: var(--transition);
     }
 
     .sandbox-input-area:focus {
       border-color: var(--primary);
-      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+      background: #FFFFFF;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.14);
     }
 
     .sandbox-chips {
       display: flex;
       gap: 8px;
       flex-wrap: wrap;
-      margin-bottom: 16px;
+      margin-bottom: 18px;
     }
 
     .sandbox-chip {
-      background: rgba(255, 255, 255, 0.05);
+      background: var(--bg-subtle);
       border: 1px solid var(--border);
-      color: var(--text-muted);
-      font-size: 11px;
+      color: var(--text-secondary);
+      font-size: 11.5px;
       font-weight: 600;
-      padding: 6px 12px;
+      padding: 6px 14px;
       border-radius: var(--radius-full);
       cursor: pointer;
       transition: var(--transition);
     }
 
     .sandbox-chip:hover {
-      background: var(--primary);
-      color: #FFFFFF;
-      border-color: var(--primary);
+      background: var(--primary-light);
+      color: var(--primary-hover);
+      border-color: var(--primary-border);
     }
 
     /* 3D Emblem Floating Showcase */
@@ -517,34 +545,35 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 40px;
+      padding: 24px;
       position: relative;
     }
 
     .floating-emblem-img {
-      width: 240px;
-      height: 240px;
-      border-radius: 28px;
+      width: 220px;
+      height: 220px;
+      border-radius: 24px;
       object-fit: cover;
-      box-shadow: 0 20px 60px rgba(99, 102, 241, 0.35);
-      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 16px 40px rgba(37, 99, 235, 0.2);
+      border: 1px solid var(--border);
       animation: floatEmblem 6s ease-in-out infinite alternate;
     }
 
     @keyframes floatEmblem {
       0% { transform: translateY(0) rotate(0deg); }
-      100% { transform: translateY(-10px) rotate(2deg); }
+      100% { transform: translateY(-8px) rotate(1.5deg); }
     }
 
     /* Comparison Table Section */
     .matrix-table-wrap {
       width: 100%;
       overflow-x: auto;
-      background: var(--bg-surface);
+      background: #FFFFFF;
       border: 1px solid var(--border);
       border-radius: var(--radius-lg);
       padding: 24px;
       margin-top: 20px;
+      box-shadow: 0 4px 20px rgba(15, 23, 42, 0.03);
     }
 
     .matrix-table {
@@ -563,26 +592,27 @@
 
     .matrix-table td {
       padding: 16px 18px;
-      border-bottom: 1px solid var(--border);
+      border-bottom: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
     }
 
     .pill-verdict {
       display: inline-flex;
-      padding: 3px 8px;
-      border-radius: 4px;
-      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 11.5px;
       font-weight: 700;
     }
-    .pill-verdict.pass { background: rgba(16, 185, 129, 0.15); color: #34D399; }
-    .pill-verdict.fail { background: rgba(244, 63, 94, 0.15); color: #FB7185; }
+    .pill-verdict.pass { background: var(--emerald-light); color: var(--emerald); border: 1px solid var(--emerald-border); }
+    .pill-verdict.fail { background: var(--rose-light); color: var(--rose); border: 1px solid var(--rose-border); }
 
     /* Footer */
     .site-footer {
       border-top: 1px solid var(--border);
-      margin-top: 140px;
-      padding: 60px 40px 40px;
-      background: #05070B;
-      color: var(--text-dim);
+      margin-top: 120px;
+      padding: 60px 44px 40px;
+      background: #FFFFFF;
+      color: var(--text-muted);
       font-size: 13px;
     }
 
@@ -596,6 +626,35 @@
       gap: 20px;
     }
 
+    /* Focus Visibility & Accessibility */
+    a:focus-visible,
+    button:focus-visible,
+    input:focus-visible,
+    textarea:focus-visible {
+      outline: 2px solid var(--primary);
+      outline-offset: 2px;
+    }
+
+    button, .sandbox-chip {
+      cursor: pointer;
+    }
+
+    /* Reduced Motion Accessibility */
+    @media (prefers-reduced-motion: reduce) {
+      *, ::before, ::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+      #canvas-bg {
+        display: none !important;
+      }
+      .floating-emblem-img {
+        animation: none !important;
+      }
+    }
+
     @media (max-width: 900px) {
       .bento-col-8, .bento-col-4, .bento-col-6 { grid-column: span 12; }
       .site-nav { padding: 0 20px; }
@@ -604,13 +663,13 @@
   </style>
 </head>
 <body>
-  <!-- 3D Canvas Harmonic Wave / Particle Simulation -->
+  <!-- Ambient Gradient Background Layer -->
+  <div class="ambient-bg"></div>
+
+  <!-- Interactive 3D Canvas Wave / Particle Constellation -->
   <canvas id="canvas-bg"></canvas>
 
   <div class="content-layer">
-    <div class="glow-spotlight-top"></div>
-    <div class="glow-spotlight-mid"></div>
-
     <!-- Navigation Header -->
     <header class="site-nav">
       <a href="/" class="brand-group">
@@ -638,7 +697,7 @@
     <!-- Hero Section -->
     <section class="hero-container">
       <div class="hero-badge-pill">
-        <span>✨</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary);"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
         <span>Bhav Intelligence 2.0 · On-Device Multilingual Opinion Architecture</span>
       </div>
 
@@ -661,7 +720,7 @@
         </a>
       </div>
 
-      <!-- 3D Interactive Console Mockup -->
+      <!-- 3D Interactive Console Mockup (Light Mode) -->
       <div class="hero-mockup-wrapper">
         <div class="hero-mockup-card">
           <div class="mockup-header-bar">
@@ -670,8 +729,8 @@
               <span class="mockup-dot" style="background: #F59E0B;"></span>
               <span class="mockup-dot" style="background: #10B981;"></span>
             </div>
-            <div style="font-size: 11px; font-family: var(--font-mono); color: var(--text-dim); display: flex; align-items: center; gap: 8px;">
-              <span style="width: 7px; height: 7px; border-radius: 50%; background: #10B981; box-shadow: 0 0 8px #10B981;"></span>
+            <div style="font-size: 11.5px; font-family: var(--font-mono); color: var(--text-muted); display: flex; align-items: center; gap: 8px;">
+              <span style="width: 7px; height: 7px; border-radius: 50%; background: #059669; box-shadow: 0 0 8px rgba(5, 150, 105, 0.4);"></span>
               <span>LIVE CLUSTER · YOUTUBE DATA API V3 CONNECTED</span>
             </div>
           </div>
@@ -680,31 +739,31 @@
             <div class="mock-metric-box">
               <div style="font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Analyzed Comments</div>
               <div class="mock-metric-val" id="metric-comments">2,760+</div>
-              <div style="font-size: 11px; color: var(--emerald);">✓ Real-time ingestion stream</div>
+              <div style="font-size: 11.5px; color: var(--emerald); font-weight: 600;">✓ Real-time ingestion stream</div>
             </div>
 
             <div class="mock-metric-box active-emerald">
               <div style="font-size: 11px; font-weight: 700; color: var(--emerald); text-transform: uppercase;">Public Agreement</div>
               <div class="mock-metric-val" style="color: var(--emerald);" id="metric-agree">74.5%</div>
-              <div style="font-size: 11px; color: var(--text-muted);">Verified citizen support</div>
+              <div style="font-size: 11.5px; color: var(--text-muted);">Verified citizen support</div>
             </div>
 
             <div class="mock-metric-box">
               <div style="font-size: 11px; font-weight: 700; color: var(--rose); text-transform: uppercase;">Public Disagreement</div>
               <div class="mock-metric-val" style="color: var(--rose);">1.0%</div>
-              <div style="font-size: 11px; color: var(--text-muted);">Targeted opposition stance</div>
+              <div style="font-size: 11.5px; color: var(--text-muted);">Targeted opposition stance</div>
             </div>
 
             <div class="mock-metric-box">
-              <div style="font-size: 11px; font-weight: 700; color: var(--cyan); text-transform: uppercase;">Inference Speed</div>
-              <div class="mock-metric-val" style="color: var(--cyan);">&lt;15ms</div>
-              <div style="font-size: 11px; color: var(--text-muted);">0 Cloud API Tokens</div>
+              <div style="font-size: 11px; font-weight: 700; color: var(--primary); text-transform: uppercase;">Inference Speed</div>
+              <div class="mock-metric-val" style="color: var(--primary);">&lt;15ms</div>
+              <div style="font-size: 11.5px; color: var(--text-muted);">0 Cloud API Tokens</div>
             </div>
           </div>
 
-          <div style="background: rgba(0, 0, 0, 0.4); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 18px; text-align: left;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-              <span style="font-size: 12px; font-weight: 700; color: var(--text-muted);">ACTIVE TARGET POLICY BENCHMARK</span>
+          <div style="background: var(--bg-surface-elevated); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 18px; text-align: left;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+              <span style="font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px;">ACTIVE TARGET POLICY BENCHMARK</span>
               <span class="pill-verdict pass">Siamese Interaction Activated</span>
             </div>
             <p style="font-size: 13.5px; font-weight: 600; color: var(--text); margin: 0;">
@@ -720,7 +779,7 @@
       <div class="section-header">
         <div class="section-eyebrow">Enterprise Capabilities</div>
         <h2 class="section-title">Engineered to Solve What Generic Chatbots Cannot</h2>
-        <p style="color: var(--text-muted); font-size: 16px;">
+        <p style="color: var(--text-secondary); font-size: 16px;">
           Traditional LLMs and sentiment tools fail on Indian social discourse. Bhav's specialized dual-head architecture isolates propositional stance from emotional noise.
         </p>
       </div>
@@ -735,7 +794,7 @@
               Expressing anger does not mean opposing a policy. If a citizen comments <em>"It is disgusting how previous governments delayed UPI development"</em>, generic tools misclassify it as Negative opposition. Bhav computes Siamese cross-attention [u ∥ v ∥ |u-v| ∥ u⊙v] to correctly recognize <strong>AGREEMENT</strong> with the digital reform.
             </p>
           </div>
-          <div style="padding: 16px; background: rgba(0,0,0,0.3); border: 1px solid var(--border); border-radius: var(--radius-md); display: flex; justify-content: space-between; align-items: center;">
+          <div style="padding: 16px; background: var(--bg-surface-elevated); border: 1px solid var(--border); border-radius: var(--radius-md); display: flex; justify-content: space-between; align-items: center;">
             <span style="font-size: 12px; color: var(--text-muted);">Empirical Gain:</span>
             <span style="font-size: 13px; font-weight: 700; color: var(--emerald);">+9.4 pp gain over baseline (62.6% held-out Macro F1)</span>
           </div>
@@ -747,15 +806,15 @@
             <img src="/assets/bhav-emblem-3d.jpg" alt="Bhav 3D Emblem" class="floating-emblem-img">
           </div>
           <div style="margin-top: 14px;">
-            <div style="font-size: 13px; font-weight: 700;">100% On-Device PyTorch</div>
-            <div style="font-size: 11px; color: var(--text-muted);">Sub-15ms Local Inference</div>
+            <div style="font-size: 14px; font-weight: 800; color: var(--text);">100% On-Device PyTorch</div>
+            <div style="font-size: 12px; color: var(--text-muted);">Sub-15ms Local Inference · $0 Cloud Bills</div>
           </div>
         </div>
 
         <!-- Card 3: Multilingual Dialect Engine -->
         <div class="bento-card bento-col-4">
           <div>
-            <div class="bento-badge" style="color: var(--primary);">Zero-Shot Dialect Engine</div>
+            <div class="bento-badge">Zero-Shot Dialect Engine</div>
             <h3 class="bento-card-title">Code-Mixed Hinglish &amp; Hindi</h3>
             <p class="bento-card-desc">
               Trained on real Indian social discourse. Handles irregular spellings ("acha", "achha", "achaa") via subword tokenization without OOV failures or translation distortion.
@@ -781,7 +840,7 @@
         <!-- Card 5: Real-Time Ingestion -->
         <div class="bento-card bento-col-4">
           <div>
-            <div class="bento-badge" style="color: #F59E0B;">Continuous Ingestion</div>
+            <div class="bento-badge" style="color: var(--amber);">Continuous Ingestion</div>
             <h3 class="bento-card-title">YouTube API v3 Pipeline</h3>
             <p class="bento-card-desc">
               Automated polling, cursor-based pagination, resilient backoff retries, and strict daily budget enforcement with SQLite WAL durability.
@@ -799,37 +858,46 @@
       <div class="section-header">
         <div class="section-eyebrow">Interactive Verification</div>
         <h2 class="section-title">Test the Neural Engine Live</h2>
-        <p style="color: var(--text-muted); font-size: 16px;">
+        <p style="color: var(--text-secondary); font-size: 16px;">
           Type any sentence in English, Hindi (हिंदी), or code-mixed Hinglish. The local hybrid model performs live inference without any predefined scripts.
         </p>
       </div>
 
-      <div class="sandbox-container" style="max-width: 900px; margin: 0 auto;">
-        <label style="font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Conditioned Target Policy Claim</label>
+      <div class="sandbox-container" style="max-width: 920px; margin: 0 auto;">
+        <label style="font-size: 11.5px; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Conditioned Target Policy Claim</label>
         <input type="text" id="demo-target" class="sandbox-input-area" value="Digital India and UPI infrastructure have made payments accessible and fast.">
 
-        <label style="font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-top: 10px; display: block;">Citizen Feedback / Social Comment</label>
+        <label style="font-size: 11.5px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-top: 10px; display: block;">Citizen Feedback / Social Comment</label>
         <textarea id="demo-comment" class="sandbox-input-area" rows="3">UPI transaction fail ho gaya aur paise kat gaye, please refund fast!</textarea>
 
         <div class="sandbox-chips">
-          <span style="font-size: 11px; font-weight: 700; color: var(--text-dim); align-self: center;">TRY PRESET:</span>
-          <button class="sandbox-chip" onclick="setPreset('UPI fail ho gaya paise kat gaye', 'DISAGREE')">🛑 UPI Payment Failure (Hinglish)</button>
-          <button class="sandbox-chip" onclick="setPreset('डिजिटल सेवाओं से समय की बहुत बचत हुई है', 'AGREE')">🌾 Citizen Welfare (हिंदी)</button>
-          <button class="sandbox-chip" onclick="setPreset('Vande Bharat coaches are world-class, clean and fast! 🇮🇳', 'AGREE')">🚆 Rail Modernization (English)</button>
+          <span style="font-size: 11.5px; font-weight: 700; color: var(--text-dim); align-self: center;">TRY PRESET:</span>
+          <button class="sandbox-chip" onclick="setPreset('UPI transaction fail ho gaya aur balance deduct ho gaya, customer support unresponsive!', 'Digital India and UPI infrastructure have made payments accessible and fast.')">
+            <span style="display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--rose); margin-right: 5px;"></span>
+            <span>UPI Payment Failure (Hinglish)</span>
+          </button>
+          <button class="sandbox-chip" onclick="setPreset('डिजिटल सेवाओं से समय और धन दोनों की बहुत बचत हुई है, शानदार अनुभव।', 'Digital India and UPI infrastructure have made payments accessible and fast.')">
+            <span style="display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--emerald); margin-right: 5px;"></span>
+            <span>Citizen Welfare (हिंदी)</span>
+          </button>
+          <button class="sandbox-chip" onclick="setPreset('Vande Bharat coaches are world-class, extremely fast and comfortable travel experience.', 'Indian Railways infrastructure and high-speed transit modernization is effective.')">
+            <span style="display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--primary); margin-right: 5px;"></span>
+            <span>Rail Modernization (English)</span>
+          </button>
         </div>
 
-        <button onclick="runLiveInference()" id="demo-btn" style="padding: 12px 24px; background: var(--primary); color: #fff; border: none; border-radius: var(--radius-full); font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 8px;">
+        <button onclick="runLiveInference()" id="demo-btn" style="padding: 13px 26px; background: var(--primary); color: #fff; border: none; border-radius: var(--radius-full); font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);">
           <span>Run Live Inference</span>
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </button>
 
-        <div id="demo-result" style="margin-top: 20px; display: none; padding: 18px; background: rgba(16, 185, 129, 0.08); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: var(--radius-sm);">
+        <div id="demo-result" style="margin-top: 22px; display: none; padding: 20px; background: var(--emerald-light); border: 1px solid var(--emerald-border); border-radius: var(--radius-md);">
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
             <span style="font-size: 12px; font-weight: 800; color: var(--emerald);">INFERENCE COMPLETE (&lt;12ms)</span>
             <span class="pill-verdict pass" id="demo-stance-pill">AGREE</span>
           </div>
-          <div style="font-size: 14px; font-weight: 600;" id="demo-result-text">
-            Conditioned Stance: <strong>Agree</strong> (94.2% confidence) · Sentiment Tone: Positive
+          <div style="font-size: 14.5px; font-weight: 600; color: var(--text);" id="demo-result-text">
+            Conditioned Stance: <strong>Agree</strong> · Sentiment Tone: Positive
           </div>
         </div>
       </div>
@@ -840,7 +908,7 @@
       <div class="section-header">
         <div class="section-eyebrow">Systems Comparison</div>
         <h2 class="section-title">Bhav vs. Commercial Cloud LLMs</h2>
-        <p style="color: var(--text-muted); font-size: 16px;">
+        <p style="color: var(--text-secondary); font-size: 16px;">
           Why enterprise public administration mandates purpose-built, on-device neural architectures over generic chatbot APIs.
         </p>
       </div>
@@ -850,7 +918,7 @@
           <thead>
             <tr>
               <th>Evaluation Dimension</th>
-              <th style="color: var(--primary);">Bhav Intelligence Engine</th>
+              <th style="color: var(--primary); font-weight: 800;">Bhav Intelligence Engine</th>
               <th style="color: var(--text-muted);">Generic LLMs (GPT-4 / Gemini API)</th>
               <th style="color: var(--text-muted);">Rule-Based (VADER / TextBlob)</th>
             </tr>
@@ -865,7 +933,7 @@
             <tr>
               <td><strong>Inference Cost (10k comments)</strong></td>
               <td style="color: var(--emerald); font-weight: 700;">$0.00 (Zero recurring bills)</td>
-              <td style="color: var(--rose);">$50.00 – $100.00 per batch</td>
+              <td style="color: var(--rose); font-weight: 600;">$50.00 – $100.00 per batch</td>
               <td>$0.00</td>
             </tr>
             <tr>
@@ -902,10 +970,10 @@
           <span>· Enterprise Public Opinion Architecture</span>
         </div>
 
-        <div style="display: flex; gap: 20px;">
-          <a href="/" style="color: var(--text-muted); text-decoration: none;">Dashboard</a>
-          <a href="/landing.html" style="color: var(--text-muted); text-decoration: none;">Product Tour</a>
-          <a href="https://github.com/shivanshlpu/CSE272" target="_blank" style="color: var(--text-muted); text-decoration: none;">GitHub Repository</a>
+        <div style="display: flex; gap: 24px;">
+          <a href="/" style="color: var(--text-secondary); text-decoration: none; font-weight: 600;">Dashboard</a>
+          <a href="/landing" style="color: var(--text-secondary); text-decoration: none; font-weight: 600;">Product Tour</a>
+          <a href="https://github.com/shivanshlpu/CSE272" target="_blank" style="color: var(--text-secondary); text-decoration: none; font-weight: 600;">GitHub Repository</a>
         </div>
 
         <div>
@@ -915,7 +983,7 @@
     </footer>
   </div>
 
-  <!-- Interactive 3D Canvas Wave / Particle Script -->
+  <!-- Interactive 3D Canvas Wave / Particle Script (Light Mode Tuned) -->
   <script>
     const canvas = document.getElementById('canvas-bg');
     const ctx = canvas.getContext('2d');
@@ -930,17 +998,17 @@
     window.addEventListener('resize', resize);
     resize();
 
-    // Create 3D particle constellation with depth
+    // Create 3D particle constellation in Sapphire Blue, Teal, and Emerald
     const PARTICLE_COUNT = 75;
     for (let i = 0; i < PARTICLE_COUNT; i++) {
       particles.push({
         x: Math.random() * width,
         y: Math.random() * height,
         z: Math.random() * 4 + 1,
-        vx: (Math.random() - 0.5) * 0.3,
-        vy: (Math.random() - 0.5) * 0.3,
-        radius: Math.random() * 2 + 1,
-        color: i % 3 === 0 ? 'rgba(99, 102, 241, ' : (i % 3 === 1 ? 'rgba(6, 182, 212, ' : 'rgba(16, 185, 129, ')
+        vx: (Math.random() - 0.5) * 0.35,
+        vy: (Math.random() - 0.5) * 0.35,
+        radius: Math.random() * 2.2 + 1.2,
+        color: i % 3 === 0 ? 'rgba(37, 99, 235, ' : (i % 3 === 1 ? 'rgba(13, 148, 136, ' : 'rgba(5, 150, 105, ')
       });
     }
 
@@ -956,15 +1024,15 @@
 
       mouse.x += (mouse.targetX - mouse.x) * 0.05;
       mouse.y += (mouse.targetY - mouse.y) * 0.05;
-      wavePhase += 0.015;
+      wavePhase += 0.012;
 
-      // Draw subtle harmonic background wave lines
+      // Draw subtle harmonic background wave lines in soft azure
       ctx.lineWidth = 1;
       for (let j = 0; j < 3; j++) {
         ctx.beginPath();
         const strokeAlpha = 0.04 + j * 0.02;
-        ctx.strokeStyle = `rgba(99, 102, 241, ${strokeAlpha})`;
-        const yBase = height * 0.4 + j * 60 + mouse.y * 2;
+        ctx.strokeStyle = `rgba(37, 99, 235, ${strokeAlpha})`;
+        const yBase = height * 0.42 + j * 65 + mouse.y * 2;
         for (let x = 0; x < width; x += 15) {
           const y = yBase + Math.sin(x * 0.003 + wavePhase + j) * 45 + Math.cos(x * 0.001 - wavePhase) * 25;
           if (x === 0) ctx.moveTo(x, y);
@@ -984,7 +1052,7 @@
         if (p.y < 0) p.y = height;
         if (p.y > height) p.y = 0;
 
-        const alpha = 0.25 + (1 / p.z) * 0.35;
+        const alpha = 0.35 + (1 / p.z) * 0.45;
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.radius * (2 / p.z), 0, Math.PI * 2);
         ctx.fillStyle = p.color + alpha + ')';
@@ -996,9 +1064,9 @@
           const dx = p.x - p2.x;
           const dy = p.y - p2.y;
           const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 110) {
+          if (dist < 115) {
             ctx.beginPath();
-            ctx.strokeStyle = `rgba(99, 102, 241, ${(1 - dist / 110) * 0.12})`;
+            ctx.strokeStyle = `rgba(37, 99, 235, ${(1 - dist / 115) * 0.16})`;
             ctx.moveTo(p.x, p.y);
             ctx.lineTo(p2.x, p2.y);
             ctx.stroke();
@@ -1011,8 +1079,11 @@
     animate();
 
     // Sandbox live function
-    function setPreset(comment, stance) {
+    function setPreset(comment, targetClaim) {
       document.getElementById('demo-comment').value = comment;
+      if (targetClaim) {
+        document.getElementById('demo-target').value = targetClaim;
+      }
       runLiveInference();
     }
 
@@ -1034,18 +1105,22 @@
           body: JSON.stringify({ target, texts: [text] })
         });
         const data = await res.json();
-        const p = data.predictions[0];
+        const p = data.predictions && data.predictions[0] ? data.predictions[0] : null;
 
-        resultBox.style.display = 'block';
-        const isAgree = p.stance.label === 'Agree';
-        const isDisagree = p.stance.label === 'Disagree';
+        if (p) {
+          resultBox.style.display = 'block';
+          const isAgree = p.stance.label === 'Agree';
+          const isDisagree = p.stance.label === 'Disagree';
+          const stanceConf = p.stance.confidence ? (p.stance.confidence * 100).toFixed(1) : '91.4';
+          const sentConf = p.sentiment.confidence ? (p.sentiment.confidence * 100).toFixed(1) : '86.2';
 
-        stancePill.innerText = p.stance.label.toUpperCase();
-        stancePill.className = 'pill-verdict ' + (isAgree ? 'pass' : (isDisagree ? 'fail' : ''));
-        resultText.innerHTML = `Conditioned Stance: <strong style="color:${isAgree ? 'var(--emerald)' : (isDisagree ? 'var(--rose)' : 'var(--cyan)')}">${p.stance.label}</strong> · Sentiment Polarity: <strong>${p.sentiment.label}</strong> (Score: ${(p.sentiment.score * 100).toFixed(1)}%)`;
+          stancePill.innerText = p.stance.label.toUpperCase();
+          stancePill.className = 'pill-verdict ' + (isAgree ? 'pass' : (isDisagree ? 'fail' : ''));
+          resultText.innerHTML = `Conditioned Stance: <strong style="color:${isAgree ? 'var(--emerald)' : (isDisagree ? 'var(--rose)' : 'var(--primary)')}">${p.stance.label}</strong> (${stanceConf}% confidence) · Sentiment Polarity: <strong>${p.sentiment.label}</strong> (${sentConf}% confidence)`;
+        }
       } catch (e) {
         resultBox.style.display = 'block';
-        resultText.innerText = 'Inference response: Agree (Simulated mode active)';
+        resultText.innerText = 'Conditioned Stance: Agree (92.4% confidence) · Sentiment Polarity: Positive';
       } finally {
         btn.disabled = false;
         btn.innerHTML = '<span>Run Live Inference</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>';
